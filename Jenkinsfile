@@ -7,12 +7,12 @@ pipeline {
         spec:
           containers:
           - name: builder
-            image: yobasystems/alpine-docker
+            image: gcr.io/kaniko-project/executor:v1.6.0-debug
             imagePullPolicy: "IfNotPresent"
             command:
             - sleep
             args:
-            - 10
+            - 100
             volumeMounts:
             - name: kaniko-secret
               mountPath: /kaniko/.docker
@@ -27,13 +27,10 @@ pipeline {
         }
     }
 stages {
-  stage('check') {
+  stage('building new image') {
     steps{
         container('builder'){
-          sh ''' 
-            docker build -t tr94/test:latest .
-            docker push tr94/test:latest
-        '''
+          sh '/kaniko/executor --context "`pwd`" --destination tr94/testim:1'
         }
          }
                  }
