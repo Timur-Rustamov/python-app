@@ -50,7 +50,7 @@ stages {
   stage('deploy to k8s') {
     steps{
         container('deployer'){
-          sh 'sed -i "s/<tag>/v${BUILD_NUMBER}" Deployment'
+          sh 'sed -i "s/<tag>/v${BUILD_NUMBER}/g" Deployment'
           sh 'kubectl apply -f Deployment'
         }
          }
