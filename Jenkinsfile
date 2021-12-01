@@ -16,6 +16,16 @@ pipeline {
             volumeMounts:
             - name: kaniko-secret
               mountPath: /kaniko/.docker
+          - name: deployer
+            image: joshendriks/alpine-k8s
+            imagePullPolicy: "IfNotPresent"
+            command:
+            - sleep
+            args:
+            - 300
+            volumeMounts:
+            - name: kubeconf
+              mountPath: /.kube
           volumes:
           - name: kaniko-secret
             secret:
@@ -23,6 +33,9 @@ pipeline {
               items:
                 - key: .dockerconfigjson
                   path: config.json
+          - name: kubeconf
+            configMap:
+              name: kubeconf
         '''
         }
     }
@@ -33,6 +46,13 @@ stages {
           sh '/kaniko/executor --context "`pwd`" --destination tr94/testim:1'
         }
          }
-                 }
-       }
+}
+  stage('deploy to k8s') {
+    steps{
+        container('deployer'){
+          sh 'kubectl apply -f Deployment'
+        }
+         }
+      }
+  }
 }
