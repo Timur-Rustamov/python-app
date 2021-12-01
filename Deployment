@@ -3,9 +3,9 @@ kind: Deployment
 metadata:
   labels:
     app: pythonapp
-    env: WeeklyAsessment
     owner: TumurRustamov
   name: pythonapp
+  namespace: python-app
 spec:
   replicas: 3
   selector:
@@ -46,3 +46,20 @@ spec:
           limits:
             memory: "512Mi"
             cpu: "500m"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: pythonapp
+    owner: TumurRustamov
+  name: pythonappnodeportservice
+  namespace: python-app
+spec:
+  type: NodePort
+  selector:
+    app: pythonapp
+  ports:
+   - name: pythonappnodeportservice
+     port: 8080
+     protocol: TCP
