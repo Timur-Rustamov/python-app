@@ -28,7 +28,7 @@ spec:
         app: pythonapp
     spec:
       containers:
-      - image: tr94/app:${BUILD_NUMBER}
+      - image: tr94/app:<tag>
         name: appimage
         ports:
           - containerPort: 8080
