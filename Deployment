@@ -1,3 +1,8 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: python-app
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -23,7 +28,7 @@ spec:
         app: pythonapp
     spec:
       containers:
-      - image: tr94/appimage:smallest
+      - image: tr94/app:${BUILD_NUMBER}
         name: appimage
         ports:
           - containerPort: 8080

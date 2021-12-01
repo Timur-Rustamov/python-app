@@ -43,7 +43,7 @@ stages {
   stage('building new image') {
     steps{
         container('builder'){
-          sh '/kaniko/executor --context "`pwd`" --destination tr94/testim:1'
+          sh '/kaniko/executor --context "`pwd`" --destination tr94/app:v${BUILD_NUMBER}'
         }
          }
 }
