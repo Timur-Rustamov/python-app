@@ -61,7 +61,7 @@ metadata:
   name: pythonappnodeportservice
   namespace: python-app
 spec:
-  type: NodePort
+  type: ClusterIP
   selector:
     app: pythonapp
   ports:
