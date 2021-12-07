@@ -7,7 +7,7 @@ from setuptools import setup
 
 setup(
     name='demo',
-    version='0.6',
+    version='0.7',
     long_description=__doc__,
     packages=['demo'],
     include_package_data=False,
